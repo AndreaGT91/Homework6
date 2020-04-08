@@ -33,28 +33,21 @@
                                 class="fas fa-search"></i></button>
                     </form>
                     <br>
-                    <div class="list-group">
-                        <a href="#" class="list-group-item list-group-item-action">Atlanta</a>
-                        <a href="#" class="list-group-item list-group-item-action">Austin</a>
-                        <a href="#" class="list-group-item list-group-item-action">Chicago</a>
-                        <a href="#" class="list-group-item list-group-item-action">Denver</a>
-                        <a href="#" class="list-group-item list-group-item-action">New York</a>
-                        <a href="#" class="list-group-item list-group-item-action">Orlando</a>
-                        <a href="#" class="list-group-item list-group-item-action">San Francisco</a>
-                        <a href="#" class="list-group-item list-group-item-action">Seattle</a>
+                    <div class="list-group" id="city-list">
+                        <!-- List built in javascript -->
                     </div>
                 </aside>
             </div> <!-- 1st main column -->
-            <div class="col-md-9">
+            <div class="col-md-9" id="city-column" style="visibility: hidden">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card mt-3">
                             <div class="card-body">
-                                <h2 class="card-title" id="cardTitle">Atlanta</h2>
-                                <p class="card-text">Temperature: </p>
-                                <p class="card-text">Humidity: </p>
-                                <p class="card-text">Wind Speed: </p>
-                                <p class="card-text">UV Index: </p>
+                                <h2 class="card-title" id="card-title"></h2>
+                                <p class="card-text" id="card-temp"></p>
+                                <p class="card-text" id="card-humid"></p>
+                                <p class="card-text" id="card-wind"></p>
+                                <p class="card-text" id="card-uv"></p>
                             </div>
                         </div>
                     </div> <!-- Single sub-column in column 2 -->
@@ -63,57 +56,8 @@
                 <div class="row ml-1">
                     <h2>5-Day Forecast:</h2>
                 </div> <!-- 2nd row in 2nd column -->
-                <div class="row">
-                    <div class="col">
-                        <div class="card text-white bg-primary">
-                            <div class="card-body px-2">
-                                <h5 class="card-title">4/7/2020</h5>
-                                <p class="card-text">Sunny</p>
-                                <p class="card-text">Temp: 72.04 %F</p>
-                                <p class="card-text">Humidity: 43%</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card text-white bg-primary">
-                            <div class="card-body px-2">
-                                <h5 class="card-title">4/8/2020</h5>
-                                <p class="card-text">Sunny</p>
-                                <p class="card-text">Temp: 74.6 %F</p>
-                                <p class="card-text">Humidity: 48%</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card text-white bg-primary">
-                            <div class="card-body px-2">
-                                <h5 class="card-title">4/8/2020</h5>
-                                <p class="card-text">Sunny</p>
-                                <p class="card-text">Temp: 74.6 %F</p>
-                                <p class="card-text">Humidity: 48%</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card text-white bg-primary">
-                            <div class="card-body px-2">
-                                <h5 class="card-title">4/8/2020</h5>
-                                <p class="card-text">Sunny</p>
-                                <p class="card-text">Temp: 74.6 %F</p>
-                                <p class="card-text">Humidity: 48%</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card text-white bg-primary">
-                            <div class="card-body px-2">
-                                <h5 class="card-title">4/8/2020</h5>
-                                <p class="card-text">Sunny</p>
-                                <p class="card-text">Temp: 74.6 %F</p>
-                                <p class="card-text">Humidity: 48%</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="row" id="forecast">
+                    <!-- 5-day forecast built in javascript -->
                 </div> <!-- 3rd row in 2nd column -->
             </div> <!-- 2nd main column -->
         </div> <!-- main row -->

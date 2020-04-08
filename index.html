@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link rel="stylesheet" href="./style.css">;
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark justify-content-center">
+        <div class="container-fluid-nav">
+            <div class="navbar-header">
+                <span class="navbar-brand mb-0 h1">Weather Dashboard</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 bg-light pb-3 pt-3">
+                <aside>
+                    <form class="form-inline my-2 my-lg-0">
+                        <label for="citySearch">Search for a City:</label>
+                        <input class="form-control mr-0" type="search" placeholder="Search" aria-label="Search"
+                            id="citySearch">
+                        <button class="btn btn-primary my-2 my-sm-0" type="submit"><i
+                                class="fas fa-search"></i></button>
+                    </form>
+                    <br>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action">Atlanta</a>
+                        <a href="#" class="list-group-item list-group-item-action">Austin</a>
+                        <a href="#" class="list-group-item list-group-item-action">Chicago</a>
+                        <a href="#" class="list-group-item list-group-item-action">Denver</a>
+                        <a href="#" class="list-group-item list-group-item-action">New York</a>
+                        <a href="#" class="list-group-item list-group-item-action">Orlando</a>
+                        <a href="#" class="list-group-item list-group-item-action">San Francisco</a>
+                        <a href="#" class="list-group-item list-group-item-action">Seattle</a>
+                    </div>
+                </aside>
+            </div> <!-- 1st main column -->
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <h2 class="card-title" id="cardTitle">Atlanta</h2>
+                                <p class="card-text">Temperature: </p>
+                                <p class="card-text">Humidity: </p>
+                                <p class="card-text">Wind Speed: </p>
+                                <p class="card-text">UV Index: </p>
+                            </div>
+                        </div>
+                    </div> <!-- Single sub-column in column 2 -->
+                </div> <!-- 1st row in 2nd column-->
+                <br>
+                <div class="row ml-1">
+                    <h2>5-Day Forecast:</h2>
+                    <div class="col-md-2">
+                        <!-- need 5 columns, only doing 1 now -->
+                    </div>
+                </div> <!-- 2nd row in 2nd column -->
+            </div> <!-- 2nd main column -->
+        </div> <!-- main row -->
+
+    </div> <!-- container -->
+
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="./script.js"></script>
+</body>
+
+</html>

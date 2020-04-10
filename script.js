@@ -12,6 +12,7 @@ var lastSearchIndex = -1; // default value for last searched city
 
 getSavedSearches(); // Retrieve saved searches and display on loading page
 $("#city-search-btn").click(doSearch); // add on click event handler to search button
+$(".modal").modal('hide'); // make sure error modal isn't showing
 
 // Retrieved saved searches from localstorage
 function getSavedSearches() {
@@ -78,12 +79,13 @@ function getCityInfo(cityName) {
         setSavedSearches(); // save array in localstorage
         displaySavedSearches();
     }).catch(function (error) {
-        // TODO: use something other than alert
         if (error.status == 404) {
-            alert('City "' + cityName + '" not found.');
+            $("#errorMsg").text('City "' + cityName + '" not found. Please check spelling and try again.');
+            $(".modal").modal('show');
         }
         else {
-            alert("Sorry, cannot retrieve current weather. Try again later.")
+            $("#errorMsg").text("Sorry, cannot retrieve weather information. Please try again later.");
+            $(".modal").modal('show');
         }
     });
 }
@@ -167,8 +169,8 @@ function displayWeatherData() {
                     htmlP + "Humidity: " + response.daily[i].humidity + "%" + htmlPend);
             }
         }).catch(function (error) {
-            // TODO: use something other than alert
-            alert("Sorry, cannot retrieve weather information. Try again later.")
+            $("#errorMsg").text("Sorry, cannot retrieve weather information. Please try again later.");
+            $(".modal").modal('show');
         });
 
         $("#city-column").css("visibility", "visible"); // need to show information div, which was hidden on load

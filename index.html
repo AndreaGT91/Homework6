@@ -28,9 +28,9 @@
                     <form class="form-inline my-2 my-lg-0">
                         <label for="citySearch">Search for a City:</label>
                         <input class="form-control mr-0" type="search" placeholder="Search" aria-label="Search"
-                            id="citySearch">
-                        <button class="btn btn-primary my-2 my-sm-0" type="submit"><i
-                                class="fas fa-search"></i></button>
+                            id="city-search-input">
+                        <button class="btn btn-primary my-2 my-sm-0" type="submit" id="city-search-btn">
+                            <i class="fas fa-search"></i></button>
                     </form>
                     <br>
                     <div class="list-group" id="city-list">
@@ -42,12 +42,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card mt-3">
-                            <div class="card-body">
-                                <h2 class="card-title" id="card-title"></h2>
-                                <p class="card-text" id="card-temp"></p>
-                                <p class="card-text" id="card-humid"></p>
-                                <p class="card-text" id="card-wind"></p>
-                                <p class="card-text" id="card-uv"></p>
+                            <div class="card-body" id="weather-data">
+                                <!-- weather data built in javascript -->
                             </div>
                         </div>
                     </div> <!-- Single sub-column in column 2 -->
@@ -56,7 +52,7 @@
                 <div class="row ml-1">
                     <h2>5-Day Forecast:</h2>
                 </div> <!-- 2nd row in 2nd column -->
-                <div class="row" id="forecast">
+                <div class="row" id="forecast-data">
                     <!-- 5-day forecast built in javascript -->
                 </div> <!-- 3rd row in 2nd column -->
             </div> <!-- 2nd main column -->
@@ -64,9 +60,9 @@
 
     </div> <!-- container -->
 
-    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" -->
+        <!-- integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"

@@ -6,7 +6,9 @@ const openWeatherOneCall3 = "&units=imperial";
 const openWeatherAPIkey = "&APPID=eee981012b240ab34d1f9eee38b81916";
 
 const savedSearchesName = "weatherDashboardSavedCities"; // localstorage name
+const lastSearchName = "weatherDashboardLastViewed";
 var savedSearches = []; // default value for list of saved searches
+var lastSearchIndex = -1; // default value for last searched city
 
 getSavedSearches(); // Retrieve saved searches and display on loading page
 $("#city-search-btn").click(doSearch); // add on click event handler to search button
@@ -15,13 +17,17 @@ $("#city-search-btn").click(doSearch); // add on click event handler to search b
 function getSavedSearches() {
     var searchList = JSON.parse(localStorage.getItem(savedSearchesName));
 
+    lastSearchIndex = localStorage.getItem(lastSearchName);
+
     // If valid list returned, set global variable to it
     if (searchList) {
         savedSearches = searchList;
+        // Load displayed city list
+        displaySavedSearches();
     }
 
-    // Load displayed city list
-    displaySavedSearches();
+    // Display last viewed city
+    displayWeatherData();
 }
 
 // Save cities searched to localstorage
@@ -29,6 +35,7 @@ function setSavedSearches() {
     // Only save if their are entries
     if (savedSearches.length > 0) {
         // store in local storage
+        localStorage.setItem(lastSearchName, lastSearchIndex);
         localStorage.setItem(savedSearchesName, JSON.stringify(savedSearches));
     }
 }
@@ -55,7 +62,6 @@ function displaySavedSearches() {
 // Add city name to saved searches, retrieve longitude, latitude, and correct city name
 function getCityInfo(cityName) {
     var newCityInfo = {}; // object for holding data
-    var index = -1;
 
     // First, get current forecast
     var openWeatherURL = openWeatherEndPoint + openWeatherCurrent + cityName + openWeatherAPIkey;
@@ -64,30 +70,26 @@ function getCityInfo(cityName) {
         url: openWeatherURL,
         method: "GET"
     }).then(function (response) {
-        console.log(response);
         // TODO: need to see if city is already in list
         newCityInfo.name = response.name; // correctly formatted city name
         newCityInfo.lat = response.coord.lat; // latitude
         newCityInfo.lon = response.coord.lon; // longitude
-        index = savedSearches.push(newCityInfo) - 1; // add to array of saved searches
+        lastSearchIndex = savedSearches.push(newCityInfo) - 1; // add to array of saved searches
         setSavedSearches(); // save array in localstorage
         displaySavedSearches();
-        return index;
     }).catch(function (error) {
         // TODO: use something other than alert
-        console.log(error);
         if (error.status == 404) {
             alert('City "' + cityName + '" not found.');
         }
         else {
             alert("Sorry, cannot retrieve current weather. Try again later.")
         }
-        return index;
     });
 }
 
 // Update display with weather information
-function displayWeatherData(index) {
+function displayWeatherData() {
     // html needed for building city weather info and 5-day forecast
     const htmlH2 = '<h2 class="card-title">';
     const htmlImg = '<img src="';
@@ -123,20 +125,19 @@ function displayWeatherData(index) {
         return backgroundColor;
     }
 
-    // verify valid index is passed
-    if ((index>=0) && (index<savedSearches.length)) {
-        var openWeatherURL = openWeatherEndPoint + openWeatherOneCall1 + savedSearches[index].lat + 
-            openWeatherOneCall2 + savedSearches[index].lon + openWeatherOneCall3 + openWeatherAPIkey;
+    // verify lastSearchIndex is valid
+    if ((lastSearchIndex) && (lastSearchIndex>=0) && (lastSearchIndex<savedSearches.length)) {
+        var openWeatherURL = openWeatherEndPoint + openWeatherOneCall1 + savedSearches[lastSearchIndex].lat + 
+            openWeatherOneCall2 + savedSearches[lastSearchIndex].lon + openWeatherOneCall3 + openWeatherAPIkey;
 
         $.ajax({
             url: openWeatherURL,
             method: "GET"
         }).then(function (response) {
-            console.log(response);
             var weatherDiv = $("#weather-data"); // link to div where city data displayed
             var forecastDiv = $("#forecast-data"); // link to div for 5-day forecast
             var infoDate = (new Date(response.current.dt * 1000)).toLocaleDateString();
-            var weatherTitle = savedSearches[index].name + " (" + infoDate + ") ";
+            var weatherTitle = savedSearches[lastSearchIndex].name + " (" + infoDate + ") ";
             var imgURL = "http://openweathermap.org/img/wn/" + response.current.weather[0].icon + ".png";
             var imgDesc = response.current.weather[0].description;
 
@@ -167,10 +168,8 @@ function displayWeatherData(index) {
             }
         }).catch(function (error) {
             // TODO: use something other than alert
-            console.log(error);
-            alert("Sorry, cannot retrieve current weather. Try again later.")
-            }
-        );
+            alert("Sorry, cannot retrieve weather information. Try again later.")
+        });
 
         $("#city-column").css("visibility", "visible"); // need to show information div, which was hidden on load
     }
@@ -182,14 +181,13 @@ function doSearch() {
     var city = citySearchInput.val().trim();
     citySearchInput.val(""); // clear out search field
 
-    // returns index of newly added city, or -1 if error
-    var index = getCityInfo(city);
-    if (index >= 0) {
-        displayWeatherData(index);
-    }
+    getCityInfo(city);
+    displayWeatherData();
 }
 
 // On click event for city buttons
 function getCityWeather() {
-    displayWeatherData($(this).attr("value"));
+    lastSearchIndex = $(this).attr("value");
+    localStorage.setItem(lastSearchName, lastSearchIndex);
+    displayWeatherData();
 }

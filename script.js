@@ -109,7 +109,7 @@ function displayWeatherData() {
     const htmlAlt = '" alt="';
     const htmlAltEnd = '">';
     const htmlH2end = '</h2>';
-    const html1 = '<div class="col"> ' + 
+    const html1 = '<div class="col mb-2" style="width: 20%"> ' + 
         '<div class="card text-white bg-primary"> ' +
         '<div class="card-body px-2" id="forecast';
     const html2 = '"> </div> </div> </div>';
@@ -170,10 +170,6 @@ function displayWeatherData() {
                 imgURL = "http://openweathermap.org/img/wn/" + response.daily[i].weather[0].icon + ".png";
                 imgDesc = response.daily[i].weather[0].description;
                 
-                // $("#forecast" + i).append(htmlH5 + infoDate + htmlH5end,
-                //     htmlP + htmlImg + imgURL + htmlAlt + imgDesc + htmlPend,
-                //     htmlP + "Temp: " + response.daily[i].temp.day + "\xB0 F" + htmlPend,
-                //     htmlP + "Humidity: " + response.daily[i].humidity + "%" + htmlPend);  
                 $("#forecast" + i).append(htmlH5 + infoDate + htmlH5end +
                     htmlP + htmlImg + imgURL + htmlAlt + imgDesc + htmlAltEnd + htmlPend +
                     htmlP + "Temp: " + response.daily[i].temp.day + "\xB0 F" + htmlPend +

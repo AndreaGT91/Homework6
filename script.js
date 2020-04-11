@@ -65,6 +65,7 @@ function getCityInfo(cityName) {
         if (cityName.toLowerCase() === savedSearches[i].name.toLowerCase()) {
             cityFound = true;
             lastSearchIndex = i;
+            localStorage.setItem(lastSearchName, lastSearchIndex);
         }
     }
 
@@ -88,12 +89,11 @@ function getCityInfo(cityName) {
         }).catch(function (error) {
             if (error.status == 404) {
                 $("#errorMsg").text('City "' + cityName + '" not found. Please check spelling and try again.');
-                $(".modal").modal('show');
             }
             else {
                 $("#errorMsg").text("Sorry, cannot retrieve weather information. Please try again later.");
-                $(".modal").modal('show');
             }
+            $(".modal").modal('show');
         });
     }
     else {
@@ -189,15 +189,25 @@ function displayWeatherData() {
 }
 
 // on click event for search field
-function doSearch() {
+function doSearch(event) {
+    event.preventDefault();
     var citySearchInput = $("#city-search-input");
     var city = citySearchInput.val().trim();
-    citySearchInput.val(""); // clear out search field
-    getCityInfo(city);
+
+    // make sure they entered a city
+    if (city === "") {
+        $("#errorMsg").text("Please enter a city name.");
+        $(".modal").modal('show');
+    }
+    else {
+        citySearchInput.val(""); // clear out search field
+        getCityInfo(city);
+    }
 }
 
 // On click event for city buttons
-function getCityWeather() {
+function getCityWeather(event) {
+    event.preventDefault();
     lastSearchIndex = $(this).attr("value");
     localStorage.setItem(lastSearchName, lastSearchIndex);
     displayWeatherData();

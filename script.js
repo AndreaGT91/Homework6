@@ -59,33 +59,46 @@ function displaySavedSearches() {
 
 // Add city name to saved searches, retrieve longitude, latitude, and correct city name
 function getCityInfo(cityName) {
-    var newCityInfo = {}; // object for holding data
-
-    // First, get current forecast
-    var openWeatherURL = openWeatherEndPoint + openWeatherCurrent + cityName + openWeatherAPIkey;
-
-    $.ajax({
-        url: openWeatherURL,
-        method: "GET"
-    }).then(function (response) {
-        // TODO: need to see if city is already in list
-        newCityInfo.name = response.name; // correctly formatted city name
-        newCityInfo.lat = response.coord.lat; // latitude
-        newCityInfo.lon = response.coord.lon; // longitude
-        lastSearchIndex = savedSearches.push(newCityInfo) - 1; // add to array of saved searches
-        setSavedSearches(); // save array in localstorage
-        displaySavedSearches();
-        displayWeatherData();
-    }).catch(function (error) {
-        if (error.status == 404) {
-            $("#errorMsg").text('City "' + cityName + '" not found. Please check spelling and try again.');
-            $(".modal").modal('show');
+    // check to see if selected city is already in list
+    var cityFound = false;
+    for (let i=0; i<savedSearches.length; i++) {
+        if (cityName.toLowerCase() === savedSearches[i].name.toLowerCase()) {
+            cityFound = true;
+            lastSearchIndex = i;
         }
-        else {
-            $("#errorMsg").text("Sorry, cannot retrieve weather information. Please try again later.");
-            $(".modal").modal('show');
-        }
-    });
+    }
+
+    if (!cityFound) {
+        var newCityInfo = {}; // object for holding data
+
+        // First, get current forecast
+        var openWeatherURL = openWeatherEndPoint + openWeatherCurrent + cityName + openWeatherAPIkey;
+
+        $.ajax({
+            url: openWeatherURL,
+            method: "GET"
+        }).then(function (response) {
+            newCityInfo.name = response.name; // correctly formatted city name
+            newCityInfo.lat = response.coord.lat; // latitude
+            newCityInfo.lon = response.coord.lon; // longitude
+            lastSearchIndex = savedSearches.push(newCityInfo) - 1; // add to array of saved searches
+            setSavedSearches(); // save array in localstorage
+            displaySavedSearches();
+            displayWeatherData();
+        }).catch(function (error) {
+            if (error.status == 404) {
+                $("#errorMsg").text('City "' + cityName + '" not found. Please check spelling and try again.');
+                $(".modal").modal('show');
+            }
+            else {
+                $("#errorMsg").text("Sorry, cannot retrieve weather information. Please try again later.");
+                $(".modal").modal('show');
+            }
+        });
+    }
+    else {
+        displayWeatherData(); // if city already in list, display its data  
+    }
 }
 
 // Update display with weather information

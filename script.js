@@ -23,12 +23,9 @@ function getSavedSearches() {
     // If valid list returned, set global variable to it
     if (searchList) {
         savedSearches = searchList;
-        // Load displayed city list
-        displaySavedSearches();
+        displaySavedSearches(); // Load displayed city list
+        displayWeatherData(); // Display last viewed city
     }
-
-    // Display last viewed city
-    displayWeatherData();
 }
 
 // Save cities searched to localstorage
@@ -78,6 +75,7 @@ function getCityInfo(cityName) {
         lastSearchIndex = savedSearches.push(newCityInfo) - 1; // add to array of saved searches
         setSavedSearches(); // save array in localstorage
         displaySavedSearches();
+        displayWeatherData();
     }).catch(function (error) {
         if (error.status == 404) {
             $("#errorMsg").text('City "' + cityName + '" not found. Please check spelling and try again.');
@@ -128,7 +126,7 @@ function displayWeatherData() {
     }
 
     // verify lastSearchIndex is valid
-    if ((lastSearchIndex) && (lastSearchIndex>=0) && (lastSearchIndex<savedSearches.length)) {
+    if ((lastSearchIndex !== null) && (lastSearchIndex>=0) && (lastSearchIndex<savedSearches.length)) {
         var openWeatherURL = openWeatherEndPoint + openWeatherOneCall1 + savedSearches[lastSearchIndex].lat + 
             openWeatherOneCall2 + savedSearches[lastSearchIndex].lon + openWeatherOneCall3 + openWeatherAPIkey;
 
@@ -182,9 +180,7 @@ function doSearch() {
     var citySearchInput = $("#city-search-input");
     var city = citySearchInput.val().trim();
     citySearchInput.val(""); // clear out search field
-
     getCityInfo(city);
-    displayWeatherData();
 }
 
 // On click event for city buttons

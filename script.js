@@ -109,7 +109,7 @@ function displayWeatherData() {
     const htmlAlt = '" alt="';
     const htmlAltEnd = '">';
     const htmlH2end = '</h2>';
-    const html1 = '<div class="col mb-2" style="width: 20%"> ' + 
+    const html1 = '<div class="col mb-2"> ' + 
         '<div class="card text-white bg-primary"> ' +
         '<div class="card-body px-2" id="forecast';
     const html2 = '"> </div> </div> </div>';

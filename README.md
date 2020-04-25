@@ -1,5 +1,5 @@
 # Homework6
-Homework 6 - Weather Dashboard
+Homework6 - Weather Dashboard
 
 # Deployed application link
 https://andreagt91.github.io/Homework6/
